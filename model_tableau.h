@@ -26,5 +26,6 @@ void xfig_trajets_sommets (const char* nom_fichier, int dimension, double *tab, 
 void calculer_param(double *aretes, std::vector< std::vector<int> >& T, int *r, double *t, int dimension);
 double calculer_objectif(double alpha, int r, double gamma, double L, int k, double t);
 double calculer_trajet(double *aretes, std::vector< std::vector<int> >& T, int num_trajet, int dimension);
+void voisinage(int dimension, double *aretes, int v0, int v1, std::vector< std::vector<int> >& T, int nb_iter, double L);
 
 #endif

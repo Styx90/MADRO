@@ -90,6 +90,32 @@ double calculer_trajet(double *aretes, std::vector< std::vector<int> >& T, int n
 	return trajet;	
 }
 
+void voisinage(int dimension, double *aretes, int v0, int v1, std::vector< std::vector<int> >& T, int nb_iter, double L){
+	int i,j,k,l,cpt,min_i,som_cour,*r;
+	double min,obj_cour,*t;
+
+	//
+	cpt=0;r = new int;t = new double;
+	while (cpt < nb_iter){
+		calculer_param(aretes,T,r,t,dimension);
+		for(i=0 ; i<T.size() ; i++){
+			obj_cour = calculer_objectif(1,*r,1,L,(int)T.size(),*t);
+			for(j=0 ; j<T.size() ; j++){
+				if(j!=i){//Si on est pas dans le trajet courant, on tente d'ajouter les sommets de ce trajet un par un au trajet courant
+					for(k=1 ; k<T[j].size()-1 ; k++){
+						som_cour = T[j][k];
+						std::cout << "som_cour = " << som_cour << "\n";
+						
+					}
+				}
+			}
+		}
+		cpt++;
+	}
+				
+	return;
+}
+
 void glouton(int dimension, double *aretes, int v0, int v1, std::vector< std::vector<int> >& T){
 	std::vector<int> sommets_ouverts;
 	std::vector<int> derniers_arrets;

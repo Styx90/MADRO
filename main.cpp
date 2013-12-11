@@ -36,8 +36,9 @@ int main(){
 	std::cout << "obj = " << obj << "\n";
 
 	std::cout << "trajet = " << calculer_trajet(aretes,T,1,*dimension) << "\n";
-
 	
+	voisinage(*dimension,aretes,*v0,*v1,T,100,*L);
+
 	delete[](tab);
 	delete[](aretes);
 	delete[](dimension);
