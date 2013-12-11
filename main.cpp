@@ -19,7 +19,23 @@ int main(){
 
 	std::vector< std::vector<int> > T;
 	glouton(*dimension,aretes,*v0,*v1,T);
+
+	std::cout << "v0 = " << *v0 << " v1 = " << *v1 << "\n";
+
 	xfig_trajets_sommets("test.fig",*dimension,tab,*v0,*v1,T);
+
+	int *r = new int;
+	double *t = new double;
+
+	calculer_param(aretes,T,r,t,*dimension);
+
+	std::cout << "r = " << *r << " t = " << *t << "\n";
+
+	double obj = calculer_objectif(alpha,*r,gamma,*L,(int)T.size(),*t);
+
+	std::cout << "obj = " << obj << "\n";
+
+	std::cout << "trajet = " << calculer_trajet(aretes,T,1,*dimension) << "\n";
 
 	
 	delete[](tab);
@@ -28,6 +44,8 @@ int main(){
 	delete[](v0);
 	delete[](v1);
 	delete[](L);
+	delete[](r);
+	delete[](t);
 
 	return 0;
 }

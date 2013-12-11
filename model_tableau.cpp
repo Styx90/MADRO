@@ -58,6 +58,38 @@ int verif_derniers(	std::vector<int>& derniers_arrets,int v1){
 	return (i==(derniers_arrets.size())?1:0);
 }
 
+void calculer_param(double *aretes, std::vector< std::vector<int> >& T, int *r, double *t, int dimension){
+	//calcul de r
+	int i,j;
+	*r = 0;
+	for(i=0 ; i<T.size() ; i++){
+		*r = std::max(*r,(int)T[i].size());
+	}
+
+	//calcul de t
+	*t = 0;
+	for(i=0 ; i<T.size() ; i++){
+		for(j=1 ; j<T[i].size() ; j++){
+			*t = *t + aretes[indice(T[i][j-1],T[i][j],dimension)];
+		}
+	}
+		
+	return;
+}
+
+double calculer_objectif(double alpha, int r, double gamma, double L, int k, double t){
+	return alpha*r+(1-alpha)*(gamma*L*k+t);
+}
+
+double calculer_trajet(double *aretes, std::vector< std::vector<int> >& T, int num_trajet, int dimension){
+	int j;double trajet;
+	trajet = 0;
+	for(j=1 ; j<T[num_trajet].size() ; j++){
+		trajet = trajet + aretes[indice(T[num_trajet][j-1],T[num_trajet][j],dimension)];
+	}
+	return trajet;	
+}
+
 void glouton(int dimension, double *aretes, int v0, int v1, std::vector< std::vector<int> >& T){
 	std::vector<int> sommets_ouverts;
 	std::vector<int> derniers_arrets;
@@ -158,7 +190,7 @@ void xfig_trajets_sommets (const char* nom_fichier, int dimension, double *tab, 
 
 	//Trajets
 	for(i=0 ; i<T.size() ; i++){
-		couleur = i;
+		couleur = i%6;
 		for(j=1 ; j<T[i].size() ; j++){
 			fichier << "2 1 0 2 "<< couleur <<" 7 100 0 -1 0.000 0 0 -1 0 0 2" << std::endl;
 			fichier << "	 "<< tab[indice(T[i][j-1],0,2)] << " "<< tab[indice(T[i][j-1],1,2)] << " " << tab[indice(T[i][j],0,2)] << " "<< tab[indice(T[i][j],1,2)] << std::endl;
